@@ -6,7 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		212213C52D2B3CBF007F9EF0 /* OggDecoder in Frameworks */ = {isa = PBXBuildFile; productRef = 212213C42D2B3CBF007F9EF0 /* OggDecoder */; };
+		21224ABB2D2B3E79007F9EF0 /* api in Resources */ = {isa = PBXBuildFile; fileRef = 21224ABA2D2B3E79007F9EF0 /* api */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		21224ABA2D2B3E79007F9EF0 /* api */ = {isa = PBXFileReference; lastKnownFileType = folder; path = api; sourceTree = "<group>"; };
 		2122A5AF2D2B3BC0007F9EF0 /* PokeStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -23,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212213C52D2B3CBF007F9EF0 /* OggDecoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +39,7 @@
 		2122A5A62D2B3BC0007F9EF0 = {
 			isa = PBXGroup;
 			children = (
+				21224ABA2D2B3E79007F9EF0 /* api */,
 				2122A5B12D2B3BC0007F9EF0 /* PokeStats */,
 				2122A5B02D2B3BC0007F9EF0 /* Products */,
 			);
@@ -65,6 +73,7 @@
 			);
 			name = PokeStats;
 			packageProductDependencies = (
+				212213C42D2B3CBF007F9EF0 /* OggDecoder */,
 			);
 			productName = PokeStats;
 			productReference = 2122A5AF2D2B3BC0007F9EF0 /* PokeStats.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = 2122A5A62D2B3BC0007F9EF0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				212213C32D2B3CBF007F9EF0 /* XCRemoteSwiftPackageReference "OggDecoder" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2122A5B02D2B3BC0007F9EF0 /* Products */;
 			projectDirPath = "";
@@ -109,6 +121,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21224ABB2D2B3E79007F9EF0 /* api in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +337,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		212213C32D2B3CBF007F9EF0 /* XCRemoteSwiftPackageReference "OggDecoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/arkasas/OggDecoder.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		212213C42D2B3CBF007F9EF0 /* OggDecoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 212213C32D2B3CBF007F9EF0 /* XCRemoteSwiftPackageReference "OggDecoder" */;
+			productName = OggDecoder;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2122A5A72D2B3BC0007F9EF0 /* Project object */;
 }

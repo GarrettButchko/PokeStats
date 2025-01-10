@@ -91,7 +91,7 @@ struct PokeView: View {
                     Image(String(URL(fileURLWithPath: (pokemon.sprites?.frontDefault!)!).lastPathComponent.dropLast(4)))
                         .resizable()
                         .frame(width: 40, height: 40)
-    
+                    
                 }
             }
         }
@@ -103,7 +103,6 @@ struct PokeViewHeader: View {
     
     let pokemon: Pokemon
     let audioPlayer = AudioPlayer()
-    let imageManager = ImageManager()
     @State private var uiImage: UIImage? = nil
     
     var body: some View {
@@ -204,77 +203,69 @@ struct PokeViewSpeciesSection: View {
     
     var body: some View {
         
-        SectionHeader(title: "Species", color: Color(pokemon.types![0].type?.name ?? "N/A"), width: 80)
-        
-        VStack{
-            FlavorTextView(pokemonSpecies: pokemonSpecies, lang: lang, selectedGame: $selectedGame)
+        SectionView(title: "Species", titleLength: 80, num: 1, color: Color(pokemon.types![0].type?.name ?? "N/A")){
             
-            HStack{
+            VStack{
+                FlavorTextView(pokemonSpecies: pokemonSpecies, lang: lang, selectedGame: $selectedGame)
                 
-                Spacer()
-                
-                MeasurementPokeView(icon: "scalemass.fill", measurement: weight, color: Color(pokemon.types![0].type?.name ?? "N/A"), rotation: false, offset: 3)
-                
-                Spacer()
-                
-                Rectangle()
-                    .fill(.secondary)
-                    .frame(width: 1)
-                
-                Spacer()
-                
-                if (pokemonSpecies.genderRate != -1){
-                    HStack{
-                        VStack{
-                            Text("Female: \(femalePercentage.truncatingRemainder(dividingBy: 1) != 0 ? String(format: "%.1f", femalePercentage) : String(format: "%.0f", femalePercentage))%")
+                HStack{
+                    
+                    Spacer()
+                    
+                    MeasurementPokeView(icon: "scalemass.fill", measurement: weight, color: Color(pokemon.types![0].type?.name ?? "N/A"), rotation: false, offset: 3)
+                    
+                    Spacer()
+                    
+                    Rectangle()
+                        .fill(.secondary)
+                        .frame(width: 1)
+                    
+                    Spacer()
+                    
+                    if (pokemonSpecies.genderRate != -1){
+                        HStack{
+                            VStack{
+                                Text("Female: \(femalePercentage.truncatingRemainder(dividingBy: 1) != 0 ? String(format: "%.1f", femalePercentage) : String(format: "%.0f", femalePercentage))%")
+                                
+                                Text("Male: \(malePercentage.truncatingRemainder(dividingBy: 1) != 0 ? String(format: "%.1f", malePercentage) : String(format: "%.0f", malePercentage))%")
+                                
+                            }
                             
-                            Text("Male: \(malePercentage.truncatingRemainder(dividingBy: 1) != 0 ? String(format: "%.1f", malePercentage) : String(format: "%.0f", malePercentage))%")
-                            
+                            PieChartView(
+                                data: [
+                                    PieChartData(
+                                        category: "Female",
+                                        value: femalePercentage, // Calculate female percentage
+                                        color: .red
+                                    ),
+                                    PieChartData(
+                                        category: "Male",
+                                        value: malePercentage, // Calculate male percentage
+                                        color: .blue
+                                    ),
+                                ]
+                            )
                         }
-                        
-                        PieChartView(
-                            data: [
-                                PieChartData(
-                                    category: "Female",
-                                    value: femalePercentage, // Calculate female percentage
-                                    color: .red
-                                ),
-                                PieChartData(
-                                    category: "Male",
-                                    value: malePercentage, // Calculate male percentage
-                                    color: .blue
-                                ),
-                            ]
-                        )
+                    } else {
+                        Text("Genderless")
                     }
-                } else {
-                    Text("Genderless")
+                    
+                    Spacer()
+                    
+                    Rectangle()
+                        .fill(.secondary)
+                        .frame(width: 1)
+                    
+                    Spacer()
+                    
+                    MeasurementPokeView(icon: "ruler.fill", measurement: height, color: Color(pokemon.types![0].type?.name ?? "N/A"), rotation: false, offset: 10)
+                    
+                    Spacer()
                 }
+                .padding(.bottom)
                 
-                Spacer()
-                
-                Rectangle()
-                    .fill(.secondary)
-                    .frame(width: 1)
-                
-                Spacer()
-                
-                MeasurementPokeView(icon: "ruler.fill", measurement: height, color: Color(pokemon.types![0].type?.name ?? "N/A"), rotation: false, offset: 10)
-                
-                Spacer()
             }
-            .padding(.bottom)
-            
         }
-        .padding(22)
-        .background(
-            RoundedRectangle(cornerRadius: 25)
-                .fill(.thinMaterial)
-                .padding()
-                .shadow(radius: 10)
-        )
-        .offset(y: -35)
-        .frame(maxWidth: .infinity)
     }
 }
 
@@ -284,9 +275,7 @@ struct PokeViewStatSection: View {
     let pokemon: Pokemon
     let pokemonSpecies: PokemonSpecies
     let lang: String
-    
-    
-    
+
     init(pokemon: Pokemon, pokemonSpecies: PokemonSpecies, lang: String){
         
         self.pokemon = pokemon
@@ -296,22 +285,9 @@ struct PokeViewStatSection: View {
     }
     
     var body: some View {
-        
-        SectionHeader(title: "Stats", color: Color(pokemon.types![0].type?.name ?? "N/A"), width: 60)
-            .offset(y: -35)
-        
-        VStack{
+        SectionView(title: "Stats", titleLength: 60, num: 2, color: Color(pokemon.types![0].type?.name ?? "N/A")){
             BarChartView(data: pokemon.stats!, color: Color(pokemon.types![0].type?.name ?? "N/A"))
         }
-        .padding(22)
-        .background(
-            RoundedRectangle(cornerRadius: 25)
-                .fill(.thinMaterial)
-                .padding()
-                .shadow(radius: 10)
-        )
-        .offset(y: -70)
-        .frame(maxWidth: .infinity)
     }
 }
 
@@ -321,7 +297,6 @@ struct PokeViewEvolutionSection: View {
     
     let pokemon: Pokemon
     let pokemonSpecies: PokemonSpecies
-    
     let evolution: EvolutionChain
     
     let lang: String
@@ -333,15 +308,18 @@ struct PokeViewEvolutionSection: View {
         self.lang = lang
         
         self.evolution = Bundle.main.decode(pokemonSpecies.evolutionChain.url + "index.json")
-
+        
     }
     
     var body: some View {
         
-        SectionHeader(title: "Evolution", color: Color(pokemon.types![0].type?.name ?? "N/A"), width: 100)
-            .offset(y: -70)
         
-        VStack{
+        SectionView(
+            title: "Evolution",
+            titleLength: 90,
+            num: 3,
+            color: Color(pokemon.types![0].type?.name ?? "N/A")
+        ) {
             HStack {
                 
                 Spacer()
@@ -371,9 +349,9 @@ struct PokeViewEvolutionSection: View {
                                 Spacer()
                                 
                                 Image(systemName: "arrow.forward")
-                            
+                                
                                 Spacer()
-                        
+                                
                                 VStack {
                                     
                                     Image(String(URL(fileURLWithPath: (speciesToForm(speciesURL: evolution.species.url!).sprites?.frontDefault)!).lastPathComponent.dropLast(4)))
@@ -404,9 +382,9 @@ struct PokeViewEvolutionSection: View {
                                 HStack {
                                     
                                     Spacer()
-                                
+                                    
                                     Image(systemName: "arrow.forward")
-                                        
+                                    
                                     Spacer()
                                     
                                     VStack {
@@ -416,15 +394,15 @@ struct PokeViewEvolutionSection: View {
                                             .frame(width: 70, height: 70)
                                         
                                         
-                                            Text(evolution.species.name!.toNormalCase())
-                                                .lineLimit(1)
-                                                .frame(minWidth: 60)
-                                                .font(.caption)
-                                            
-                                            Text(findEvoDet(evoDet: evolution.evolutionDetails[0]))
-                                                .font(.caption2)
-                                                .frame(minWidth: 40)
-                                                .foregroundColor(.gray)
+                                        Text(evolution.species.name!.toNormalCase())
+                                            .lineLimit(1)
+                                            .frame(minWidth: 60)
+                                            .font(.caption)
+                                        
+                                        Text(findEvoDet(evoDet: evolution.evolutionDetails[0]))
+                                            .font(.caption2)
+                                            .frame(minWidth: 40)
+                                            .foregroundColor(.gray)
                                         
                                         
                                     }
@@ -438,15 +416,6 @@ struct PokeViewEvolutionSection: View {
             .padding()
             .frame(maxWidth: .infinity)
         }
-        .padding(22)
-        .background(
-            RoundedRectangle(cornerRadius: 25)
-                .fill(.thinMaterial)
-                .padding()
-                .shadow(radius: 10)
-        )
-        .offset(y: -105)
-        .frame(maxWidth: .infinity)
     }
     
     func speciesToForm(speciesURL: String) -> PokemonForm {
@@ -475,25 +444,6 @@ struct PokeViewEvolutionSection: View {
         return evoTrigger
     }
     
-}
-
-// MARK: - SectionHeader
-struct SectionHeader: View {
-    let title: String
-    let color: Color
-    let width: CGFloat
-    var body: some View {
-        Text(title)
-            .background(
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(.thickMaterial)
-                    .stroke(color, lineWidth: 2)
-                    .frame(width: width, height: 25)
-            )
-            .font(.headline)
-            .foregroundStyle(color)
-            .zIndex(1)
-    }
 }
 
 // MARK: - FlavorTextView

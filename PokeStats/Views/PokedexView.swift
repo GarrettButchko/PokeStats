@@ -31,7 +31,7 @@ struct PokedexView: View {
     var body: some View {
         List {
             Section {
-                ForEach(pokedex.descriptions, id: \.self) { descrip in
+                ForEach(pokedex.descriptions!, id: \.self) { descrip in
                     if descrip.language.name == lang && !descrip.description.isEmpty {
                         Text("Description: \(descrip.description)")
                     }
@@ -90,12 +90,7 @@ struct PokemonListView: View {
                             .resizable()
                             .frame(width: 40, height: 40)
                         
-                       // AsyncImage(url: URL(string: (pokemon1.sprites?.frontDefault)!)) { image in
-                        //    image.resizable()
-                        //        .frame(width: 40, height: 40)
-                        //} placeholder: {
-                        //    ProgressView()
-                       // }
+                       
                     }
                 }
             }

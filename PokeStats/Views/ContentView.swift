@@ -20,14 +20,14 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(pokeAPI.apiLocations, id: \.name) { location in
-                    if location.name == "pokedex" {
-                        NavigationLink(destination: IndexView(filePath: location.url, lang: lang)) {
-                            Text(location.name.toNormalCase())
+                    if location.name == "pokedex" || location.name == "itemCategory" {
+                            NavigationLink(destination: IndexView(filePath: location.url, lang: lang, name: location.name)) {
+                                Text(location.name.toUniversalNormalCase() + "'s")
+                            }
                         }
-                    }
                 }
             }
-            .navigationTitle("Pokedex's")
+            .navigationTitle("PokeStats")
         }
         .tint(Color.primary)
     }
