@@ -72,10 +72,10 @@ struct ItemListView: View {
                         AsyncImage(url: URL(string: item.sprites?.spritesDefault ?? "")) { image in
                             image
                                 .resizable()
-                               .frame(width: 39, height: 39)
+                               .frame(width: 40, height: 40)
                         } placeholder: {
                             Text("")
-                                .frame(width: 39, height: 39)
+                                .frame(width: 40, height: 40)
                         }
                     
                     }
